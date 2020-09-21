@@ -1,13 +1,9 @@
 import React from "react";
-// import axios from 'axios';
-
 import mockapi from "../api/mockapi";
 import ContactList from "./ContactList";
-// import Input from "./Input";
 import Button from "./Button";
 import ContactForm from "./ContactForm";
 
-// import '../css/app.css';
 
 class App extends React.Component {
   state = {
@@ -21,34 +17,19 @@ class App extends React.Component {
     this.getContacts();
   }
 
-  // onSearchParent = (newSearch) => {
-  //   this.setState({subName:newSearch},
-  //     () => {
-  //       const filteredSearch = this.state.avatarList.filter(
-  //         avatar => {
-  //           return (avatar.name.toLowerCase().includes(this.state.subName.toLowerCase()));
-
-  //         }
-  //       )
-  //       this.setState({filteredResult:filteredSearch});
-  //     }
-  //     )
-
-  // };
-
   onCancelClick = () => {
     this.setState({ isAddNewContact: false});
   };
-  // add contact in state
-  editContact(editedContact) {
-    const filteredContactList = this.state.contactList.filter(
+
+  editContact = (editedContact) => {
+    const filteredContactList = this.state.contactList.map(
       (contact) => {
         if(editedContact.id === contact.id){
           return editedContact;
         }
         return contact;
       }
-    );
+      );
     this.setState({ contactList: filteredContactList });
   }
   deleteContact(contactId) {
@@ -60,33 +41,22 @@ class App extends React.Component {
   onAddNewContact = async (newContact) => {
     
     const response = await mockapi.post("contacts", newContact);
-    console.log("response on add", response);
     this.setState({ contactList: [...this.state.contactList, response.data],isAddNewContact:false});
 
-    // this.setState({ contactList: this.state.contactList.push()});
   };
   onDeleteContact = async (id) => {
-    console.log("deleting contact", id);
-    const response = await mockapi.delete(`contacts/${id}`);
-    console.log("response on delete", response);
+    await mockapi.delete(`contacts/${id}`);
     this.deleteContact(id);
   };
 
   onEditContact = async (editedContact) => {
-    // const response = await mockapi.put("contacts", editedContact);
-    // console.log("response on add", response);
-    // this.editContact(editedContact);
-    // this.setState({ isEditContact: false });
-    console.log("editing contact");
+   await mockapi.put(`contacts/${editedContact.id}`, editedContact);
+    this.editContact(editedContact);
   };
 
-  // https://randomuser.me/api/?results=10
   async getContacts() {
     const response = await mockapi.get("contacts");
-
-    console.log("response is", response.data);
     this.setState({ contactList: response.data });
-    // this.setState({name:`${user.name.first} ${user.name.last}`, image:user.picture.large});
   }
   renderContent() {
     if (this.state.isAddNewContact) {

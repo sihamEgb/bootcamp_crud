@@ -6,8 +6,13 @@ class Contact extends React.Component {
 	state = {isEditContact:false}
 		//({id,name , phone,email, image , onEditParent , onDeleteParent}) 
 
+		onSaveEdit = (editedContact) => {
+			editedContact.id = this.props.id;
+			this.props.onEditParent(editedContact);
+			this.setState({ isEditContact: false });
+			console.log(editedContact);
+		}
 		onEditClick = (event) => {
-			// onEditParent(id);
 			this.setState({isEditContact:true});
 			console.log(event);
 		}
@@ -31,7 +36,7 @@ class Contact extends React.Component {
 						positiveButton='Save'
 						negativeButton='Cancel'
 						onNegativeClick={this.onCancelClick}
-						onPositiveClick={this.onEditClick}
+						onPositiveClick={this.onSaveEdit}
 						name = {this.props.name}
 						phone = {this.props.phone}
 						email = {this.props.email}
