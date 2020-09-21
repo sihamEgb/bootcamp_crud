@@ -18,10 +18,6 @@ class App extends React.Component {
     this.getContacts();
   }
 
-
-  componentDidMount() {
-  }
-
   onCancelClick = () => {
     this.setState({ isAddNewContact: false});
   };
@@ -44,26 +40,33 @@ class App extends React.Component {
     this.setState({ contactList: filteredContactList });
   }
   onAddNewContact = async (newContact) => {
-    
+    this.setState({isLoading:true});
     const response = await mockapi.post("contacts", newContact);
     this.setState({ contactList: [...this.state.contactList, response.data],isAddNewContact:false});
+    this.setState({isLoading:false});
 
   };
   onDeleteContact = async (id) => {
+    this.setState({isLoading:true});
     await mockapi.delete(`contacts/${id}`);
     this.deleteContact(id);
+    this.setState({isLoading:false});
+
   };
 
   onEditContact = async (editedContact) => {
-   await mockapi.put(`contacts/${editedContact.id}`, editedContact);
+    this.setState({isLoading:true});
+    await mockapi.put(`contacts/${editedContact.id}`, editedContact);
     this.editContact(editedContact);
+    this.setState({isLoading:false});
+
   };
 
   async getContacts() {
-    // this.setState({isLoading:true});
     const response = await mockapi.get("contacts");
     this.setState({ contactList: response.data });
     this.setState({isLoading:false});
+
   }
   renderContent() {
     if (this.state.isAddNewContact) {

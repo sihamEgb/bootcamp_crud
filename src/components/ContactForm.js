@@ -3,7 +3,8 @@ import Button from "../components/Button";
 import faker from "faker";
 
 class ContactForm extends React.Component {
-  state = { isAddNewContact: true, name: this.props.name, phone: this.props.phone, email: this.props.email, image: this.props.image };
+
+	state = { isAddNewContact: true, name: this.props.name, phone: this.props.phone, email: this.props.email, image: this.props.image };
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -44,8 +45,7 @@ class ContactForm extends React.Component {
     return (
       <div className="ui form">
 				<div className="field">
-
-					
+	
 					<div className="field">
 						<label>Name:</label>
 						<input
