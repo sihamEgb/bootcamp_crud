@@ -5,7 +5,8 @@ const ContactList = props => {
   const usersList = props.contacts.map(( user ) => 
     // <Avatar name={`${user.name.first} ${user.name.last}`} image={user.picture.large} />
     <Contact 
-      key={user.phone} 
+      key={user.id} 
+      id = {user.id}
       name={user.name} 
       phone={user.phone}
       email={user.email}

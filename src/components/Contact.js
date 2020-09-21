@@ -2,14 +2,15 @@ import React from 'react';
 
 // import '../css/app.css';
 
-const Contact = ({name , phone,email, image , onEditParent , onDeleteParent}) => {
+const Contact = ({id,name , phone,email, image , onEditParent , onDeleteParent}) => {
 	const onEditClick = (event) => {
-		onEditParent(phone);
+		onEditParent(id);
 		console.log(event);
 	}
 	const onDeleteClick = (event) => {
-		onDeleteParent(phone);
 		console.log(event);
+		console.log("id to delete",id);
+		onDeleteParent(id);
 	}
 	return(
 		<div className="ui card">
