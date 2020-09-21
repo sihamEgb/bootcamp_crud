@@ -3,18 +3,23 @@ import mockapi from "../api/mockapi";
 import ContactList from "./ContactList";
 import Button from "./Button";
 import ContactForm from "./ContactForm";
-
+import Spinner from "../components/Spinner";
 
 class App extends React.Component {
-  state = {
-    isAddNewContact: false,
-    contactList: [],
-    subName: "",
-    filteredResult: [],
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      isAddNewContact: false,
+      contactList: [],
+      subName: "",
+      filteredResult: [],
+      isLoading:true,
+    };
+    this.getContacts();
+  }
+
 
   componentDidMount() {
-    this.getContacts();
   }
 
   onCancelClick = () => {
@@ -55,8 +60,10 @@ class App extends React.Component {
   };
 
   async getContacts() {
+    // this.setState({isLoading:true});
     const response = await mockapi.get("contacts");
     this.setState({ contactList: response.data });
+    this.setState({isLoading:false});
   }
   renderContent() {
     if (this.state.isAddNewContact) {
@@ -85,7 +92,13 @@ class App extends React.Component {
     );
   }
   render() {
-    return this.renderContent();
+    if(this.state.isLoading)
+    {
+      return <Spinner></Spinner>
+    }
+    else{
+      return this.renderContent();
+    }
   }
 }
 

@@ -65,7 +65,7 @@ class Contact extends React.Component {
 								>Edit
 								</div>
 							<div className="ui basic red button"
-								onClick = {this.props.onDeleteClick}
+								onClick = {this.onDeleteClick}
 							>Delete</div>
 						</div>
 				</div>
