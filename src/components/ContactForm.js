@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../components/Button";
 
 class ContactForm extends React.Component {
-  state = { isAddNewContact: true, name: this.props.contact.name, phone: "", email: "", image: "" };
+  state = { isAddNewContact: true, name: this.props.name, phone: this.props.phone, email: this.props.email, image: this.props.image };
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -14,7 +14,7 @@ class ContactForm extends React.Component {
     }));
   };
 
-  onAddingContact = (event) => {
+  onPositiveChild = (event) => {
     const contact = {
       name: this.state.name,
       phone: this.state.phone,
@@ -84,7 +84,7 @@ class ContactForm extends React.Component {
         <div>
           <Button
             text={this.props.positiveButton}
-            onButtonClick={this.onAddingContact}></Button>
+            onButtonClick={this.onPositiveChild}></Button>
           <Button
             text={this.props.negativeButton}
             onButtonClick={this.props.onNegativeClick}></Button>

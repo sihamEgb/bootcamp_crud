@@ -12,7 +12,6 @@ import ContactForm from "./ContactForm";
 class App extends React.Component {
   state = {
     isAddNewContact: false,
-    isEditContact: false,
     contactList: [],
     subName: "",
     filteredResult: [],
@@ -38,7 +37,7 @@ class App extends React.Component {
   // };
 
   onCancelClick = () => {
-    this.setState({ isAddNewContact: false, isEditContact: false });
+    this.setState({ isAddNewContact: false});
   };
   // add contact in state
   editContact(editedContact) {
@@ -72,12 +71,12 @@ class App extends React.Component {
     console.log("response on delete", response);
     this.deleteContact(id);
   };
-  onEditContact = async (editedContact) => {
 
-    const response = await mockapi.put("contacts", editedContact);
-    console.log("response on add", response);
-    this.editContact(editedContact);
-    this.setState({ isEditContact: false });
+  onEditContact = async (editedContact) => {
+    // const response = await mockapi.put("contacts", editedContact);
+    // console.log("response on add", response);
+    // this.editContact(editedContact);
+    // this.setState({ isEditContact: false });
     console.log("editing contact");
   };
 
@@ -99,19 +98,7 @@ class App extends React.Component {
           onPositiveClick={this.onAddNewContact}></ContactForm>
       );
     }
-    if (this.state.isEditContact) {
-      return (
-        <ContactForm
-          // contact =
-          positiveButton='Save'
-          negativeButton='Cancel'
-          onNegativeClick={this.onCancelClick}
-          onPositiveClick={this.onEditContact}
-          onEditClick={() => {
-            this.setState({ isEditContact: true });
-          }}></ContactForm>
-      );
-    }
+   
     return (
       <div>
         <Button
