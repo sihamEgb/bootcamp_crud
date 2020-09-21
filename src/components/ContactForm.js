@@ -4,7 +4,10 @@ import faker from "faker";
 
 class ContactForm extends React.Component {
 
-	state = { isAddNewContact: true, name: this.props.name, phone: this.props.phone, email: this.props.email, image: this.props.image };
+	constructor(props){
+		super(props);
+		this.state = { isAddNewContact: true, name: props.name || "", phone: props.phone || "", email: props.email || "", image: props.image || ""};
+	}
 
   handleChange = (event) => {
     const value = event.target.value;
@@ -17,7 +20,6 @@ class ContactForm extends React.Component {
 
   onPositiveChild = (event) => {
 		const contact = {
-
 			name: this.state.name,
       phone: this.state.phone,
 			email: this.state.email,
